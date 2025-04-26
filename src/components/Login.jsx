@@ -1,6 +1,12 @@
 export default function Login() {
+
+  function handleSumbit(event){
+    event.preventDefault();
+    console.log('Submitted');
+  }
+
   return (
-    <form>
+    <form onSubmit={handleSumbit}>
       <h2>Login</h2>
 
       <div className="control-row">
