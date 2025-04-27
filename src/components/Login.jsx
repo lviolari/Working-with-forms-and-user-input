@@ -2,15 +2,26 @@ import { useRef, useState } from "react";
 
 export default function Login() {
 
+  const [emailIsInvalid, setEmailIsInvalid] = useState(false);
   const email = useRef();
-  const password = useState();
+  const password = useRef();
 
   function handleSumbit(event){
     event.preventDefault();
   
     const enteredEmail = email.current.value;
     const enteredPassword = password.current.value;
-    console.log(enteredEmail, enteredPassword);
+    
+    const emailIsValid = enteredEmail.includes('@');
+
+    if(!emailIsValid){
+      setEmailIsInvalid(true);
+      return;
+    }
+    
+    setEmailIsInvalid(false);
+    
+    console.log('Sending HTTP request...');
   }
 
   return (
@@ -22,9 +33,10 @@ export default function Login() {
           <label htmlFor="email">Email</label>
           <input
            id="email" 
-           type="email" 
+           type="text" 
            name="email"
            ref={email}/>
+           <div className="control-error">{emailIsInvalid && <p>Please enter a valid email address.</p>}</div>
         </div>
 
         <div className="control no-margin">
